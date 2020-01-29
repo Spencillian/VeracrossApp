@@ -13,7 +13,7 @@ export default class Info extends Component{
         let user = info["username"]
         let pass = info["password"]
 
-        fetch(`https://c3b4820b.ngrok.io/users`, {
+        return fetch(`https://c3b4820b.ngrok.io/users`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -26,24 +26,15 @@ export default class Info extends Component{
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
+            this.setState({
+                isLoading: false,
+                dataSource: data,
+            });
+            console.log(this.state.dataSource)
         })
         .catch((error) => {
             console.log(error)
         })
-
-        return fetch(`https://c3b4820b.ngrok.io/users/${user}`)
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    isLoading: false,
-                    dataSource: responseJson,
-                });
-                console.log(this.state.dataSource)
-            })
-            .catch((error) =>{
-                console.error("This is an error: " + error);
-            });
     }
 
     render(){
